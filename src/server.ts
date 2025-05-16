@@ -3,9 +3,10 @@ import routes from './routes/index.js';
 import cors from 'cors';
 import winston from 'winston';
 import expressWinston from 'express-winston';
+import helmet from 'helmet';
 
 const app = express();
-
+app.use(helmet.referrerPolicy({ policy: 'no-referrer' }));
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
