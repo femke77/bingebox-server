@@ -10,9 +10,41 @@ export const getVidSrcMovie = async (req: Request, res: Response) => {
       method: 'GET',
     });
     const doc = await response.text();
-
+    console.log(doc);
+    
     const $ = cheerio.load(doc);
-
+    const $error = $('.error');
+    if ($error) {
+      const errorText = $error.text();
+      console.log('Error:', errorText);
+      return res.status(404).send(`
+        <html>
+          <head>
+            <style>
+              body {
+                font-family: sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: black;
+                color: white;
+              }
+              .error-box {
+                border: 1px solid white;
+                background: black;
+                padding: 20px;
+                border-radius: 8px;
+                color: white;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="error-box">Error: ${errorText}</div>
+          </body>
+        </html>
+      `);
+    }
     $('script').remove();
     const $iframe = $('iframe').first();
 
@@ -29,14 +61,14 @@ export const getVidSrcMovie = async (req: Request, res: Response) => {
     const iframe = $.html($iframe);
 
     if (iframe) {
-      res.send(`
+     return res.send(`
             ${iframe}`);
     } else {
-      res.status(404).json({ error: 'Iframe not found' });
+      return res.status(404).json({ error: 'Iframe not found' });
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: 'Something went wrong' });
+    return res.status(500).json({ error: 'Something went wrong' });
   }
 };
 
