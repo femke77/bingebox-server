@@ -10,7 +10,6 @@ export const getVidSrcMovie = async (req: Request, res: Response) => {
       method: 'GET',
     });
     const doc = await response.text();
-    console.log(doc);
 
     const $ = cheerio.load(doc);
     const $error = $('.error');
@@ -110,7 +109,7 @@ export const getVidSrcTV = async (req: Request, res: Response) => {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
+                height: 80vh;
                 background-color: black;
                 color: white;
               }
