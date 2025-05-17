@@ -14,7 +14,7 @@ export const getVidSrcMovie = async (req: Request, res: Response) => {
     
     const $ = cheerio.load(doc);
     const $error = $('.error');
-    if ($error) {
+    if ($error.length > 0) {
       const errorText = $error.text();
       console.log('Error:', errorText);
       return res.status(404).send(`
