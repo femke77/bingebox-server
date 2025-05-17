@@ -40,7 +40,7 @@ export const getVidSrcMovie = async (req: Request, res: Response) => {
             </style>
           </head>
           <body>
-            <div class="error-box">Error: ${errorText}</div>
+            <div class="error-box">${errorText}</div>
           </body>
         </html>
       `);
